@@ -18,4 +18,5 @@
       DATABASE_USER: "{{ database_user }}"
       DATABASE_PASSWORD: "{{ database_password }}"
 
+  vars:
     ansible_python_interpreter: /opt/docker_venv/bin/python
