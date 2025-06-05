@@ -84,9 +84,6 @@ jobs:
         run: |
           echo "StrictHostKeyChecking=no" >> ~/.ssh/config
 
-      - name: Create Ansible vault password file
-        run: echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > ansible/vault_password.txt
-
       - name: Run Ansible Playbook
         run: |
-          ansible-playbook -i ansible/inventories/setup.yml ansible/playbook.yml --vault-password-file ansible/vault_password.txt -e "image_tag=${{ github.run_number }}"
+          ansible-playbook -i ansible/inventories/setup.yml ansible/playbook.yml -e "image_tag=${{ github.run_number }}"

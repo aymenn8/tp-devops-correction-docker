@@ -1,11 +1,12 @@
-# To run this playbook, use the following command:
-# ansible-playbook -i inventory.ini playbook.yml --vault-password-file vault_password.txt
-
 - hosts: all
   become: true
 
-  vars_files:
-    - vars/secrets.yml
+  vars:
+    database_host: ${{secrets.DATABASE_HOST}}
+    database_port: ${{secrets.DATABASE_PORT}}
+    database_name: ${{secrets.DATABASE_NAME}}
+    database_user: ${{secrets.DATABASE_USER}}
+    database_password: ${{secrets.DATABASE_PASSWORD}}
 
   roles:
     - docker
