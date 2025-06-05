@@ -1,28 +1,23 @@
 name: CI devops 2025
 on:
-  # To begin, you want to launch this job in main and develop
   push:
     branches:
       - main
-      - develop # Launch on push to main and develop branches
-  pull_request: # Also launch on pull requests
+      - develop
+  pull_request:
 
 jobs:
   test-backend:
-    runs-on: ubuntu-24.04 # Specifies the runner environment
-
+    runs-on: ubuntu-24.04
     steps:
-      # Checkout your GitHub code using actions/checkout@v4
       - uses: actions/checkout@v4
-        name: Checkout code # Descriptive name for the step
 
-      # Do the same with another action (actions/setup-java@v4) that enables setting up JDK 21
       - name: Set up JDK 21
-        uses: actions/setup-java@v4 # Action to set up Java Development Kit
+        uses: actions/setup-java@v4
         with:
-          distribution: "temurin" # Recommended distribution
-          java-version: "21" # Specifies JDK version 21
+          distribution: "temurin"
+          java-version: "21"
 
-      # Finally, build your app with the latest command
       - name: Build and test with Maven
-        run: mvn -B package --file ./simple-api/pom.xml # Command to build and run tests using Maven
+        run: mvn clean verify
+        working-directory: simple-api
