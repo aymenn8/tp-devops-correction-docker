@@ -55,3 +55,35 @@ jobs:
           context: ./http-server
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:latest
           push: true
+          
+ deploy:
+    needs: build-docker-images
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Ansible
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+
+      - name: Copy SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Disable SSH host key checking
+        run: |
+          echo "StrictHostKeyChecking=no" >> ~/.ssh/config
+
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook -i ansible/inventories/setup.yml ansible/playbook.yml -e "image_tag=${{ github.run_number }}"
