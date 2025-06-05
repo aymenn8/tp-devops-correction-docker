@@ -12,10 +12,10 @@
     networks:
       - name: network
     env:
-      DATABASE_HOST: database
-      DATABASE_PORT: "5432"
-      DATABASE_NAME: db
-      DATABASE_PASSWORD: pwd
-      DATABASE_USER: usr
-  vars:
+      DATABASE_HOST: "{{ database_host }}"
+      DATABASE_PORT: "{{ database_port }}"
+      DATABASE_NAME: "{{ database_name }}"
+      DATABASE_USER: "{{ database_user }}"
+      DATABASE_PASSWORD: "{{ database_password }}"
+
     ansible_python_interpreter: /opt/docker_venv/bin/python

@@ -8,9 +8,10 @@
     state: started
     restart_policy: always
     env:
-      POSTGRES_USER: usr
-      POSTGRES_PASSWORD: pwd
-      POSTGRES_DB: db
+      POSTGRES_USER: "{{ database_user }}"
+      POSTGRES_PASSWORD: "{{ database_password }}"
+      POSTGRES_DB: "{{ database_name }}"
+
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:

@@ -1,10 +1,13 @@
 - hosts: all
   become: true
+
   vars:
-    db_image: "mysql:8"
-    app_image: "aymenn8/tp-devops-simple-api:latest"
-    proxy_image: "nginx:alpine"
-    network_name: "network"
+    database_host: database
+    database_port: "5432"
+    database_name: db
+    database_user: usr
+    database_password: pwd
+
   roles:
     - docker
     - network
