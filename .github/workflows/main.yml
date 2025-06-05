@@ -25,4 +25,4 @@ jobs:
 
       # Finally, build your app with the latest command
       - name: Build and test with Maven
-        run: mvn -B package --file pom.xml # Command to build and run tests using Maven
+        run: mvn -B package --file ./simple-api/pom.xml # Command to build and run tests using Maven
